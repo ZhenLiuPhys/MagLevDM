@@ -64,10 +64,10 @@ ax.text(8e-13, 1.7e-11, r'SN1987A', ha = 'center', va = 'center')
 ax.fill_between(masses, 6.6316e-11, 1, color = '0.86', zorder = 0.9)
 ax.axhline(6.6316e-11, color = '0.71', zorder = 0.9)
 ax.text(2e-12, 1.8e-10, r'CAST', ha = 'center', va = 'center')
-snipehunt = np.loadtxt('snipehunt_axion.txt')
+snipehunt = np.loadtxt('snipehunt_axion.txt').T
 ax.fill_between(2 * np.pi * 6.582e-16 * snipehunt[0], snipehunt[1], 1, color = '0.81', zorder = 1)
 ax.plot(2 * np.pi * 6.582e-16 * snipehunt[0], snipehunt[1], color = '0.66', zorder = 1)
-ax.text(9e-15, 1.5e-5, 'SNIPE\nHunt', ha = 'center', va = 'center')
+ax.text(9e-15, 5e-6, 'SNIPE\nHunt', ha = 'center', va = 'center')
 
 colors = [[(0.317647, 0.654902, 0.752941)], [(1., 0.721569, 0.219608), (0.921569, 0.494118, 0.431373)]]
 for i in range(2):
