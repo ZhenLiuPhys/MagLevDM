@@ -40,6 +40,7 @@ SBB_broad = lambda omega, omega0: SBB_therm(omega, omega0) + SBB_meas_broad(omeg
 
 cohT = lambda omega: 2 * np.pi * 1e6 / omega
 g_res = lambda omega, omega0: np.sqrt(SNR * 3 * SBB_res(omega, omega0) / (rho * rhoDM)) * L ** 3 / (const * 2 * omega0 * (R ** 2 + h ** 2) ** 2.5) / np.sqrt(hbar * c) * 1.602e-10 / np.sqrt(cohT(omega0) * alpha)
+g_res_combined = lambda omega, omega0s: (SNR ** 2 / np.sum((rho * rhoDM * const ** 2 * 4 * omega0s[:, None] ** 2 * (R ** 2 + h ** 2) ** 5 * hbar * c * cohT(omega0s[:, None]) * alpha / (3 * SBB_res(omega, omega0s[:, None]) * L ** 6 * 1.602e-10 ** 2)) ** 2, axis = 0)) ** 0.25
 g_broad = lambda omega, omega0: np.sqrt(SNR * 3 * SBB_broad(omega, omega0) / (rho * rhoDM)) * L ** 3 / (const * 2 * omega0 * (R ** 2 + h ** 2) ** 2.5) / np.sqrt(hbar * c) * 1.602e-10 / (Tint * np.minimum(Tint, cohT(omega))) ** 0.25
 
 xlim1 = 2 * np.pi * 6.582e-16 * 1
@@ -83,14 +84,22 @@ for i in range(2):
         ax.plot(masses, g_broad(masses / 6.582e-16, 2 * np.pi * f0), color = colors[i][0], label = 'Broadband (existing)', zorder = 1)
     elif i == 1:
         ax.plot(masses, g_broad(masses / 6.582e-16, 2 * np.pi * f0), color = colors[i][0], label = 'Broadband (improved)', zorder = 1)
-        minmass = 2 * np.pi * 6.582e-16 * 3
-        maxmass = 2 * np.sqrt(2) * gamma * kB * T * 1e-6 / (np.pi * kappa * hbar) * Tint * 6.582e-16 / alpha + minmass
-        #opt_res = lambda omega: np.exp(optimize.minimize(lambda omega0: np.log(g_res(omega, omega0)), omega).fun)
-        def scan(mass):
-            if mass <= minmass: return(g_res(mass / 6.582e-16, minmass / 6.582e-16))
-            elif mass <= maxmass: return(g_res(mass / 6.582e-16, mass / 6.582e-16))
-            else: return(g_res(mass / 6.582e-16, maxmass / 6.582e-16))
-        ax.plot(masses, [scan(mass) for mass in masses], color = colors[i][1], label = 'Scanning (improved)', zorder = 1)
+##        minmass = 2 * np.pi * 6.582e-16 * 3
+##        maxmass = 2 * np.sqrt(2) * gamma * kB * T * 1e-6 / (np.pi * kappa * hbar) * Tint * 6.582e-16 / alpha + minmass
+####        opt_res = lambda omega: np.exp(optimize.minimize(lambda omega0: np.log(g_res(omega, omega0)), omega).fun)
+##        def scan(mass):
+##            if mass <= minmass: return(g_res(mass / 6.582e-16, minmass / 6.582e-16))
+##            elif mass <= maxmass: return(g_res(mass / 6.582e-16, mass / 6.582e-16))
+##            else: return(g_res(mass / 6.582e-16, maxmass / 6.582e-16))
+##        ax.plot(masses, [scan(mass) for mass in masses], color = colors[i][1], label = 'Scanning (improved)', zorder = 1)
+        delomega = lambda omega: 4 * np.sqrt(2) * gamma * kB * T / (kappa * hbar * omega)
+        omega0s = [2 * np.pi * 3]
+        totalT = cohT(omega0s[0]) * alpha
+        while totalT <= Tint:
+            omega0s.append(omega0s[-1] + delomega(omega0s[-1]))
+            totalT += cohT(omega0s[-1]) * alpha
+        omega0s = np.array(omega0s)
+        ax.plot(masses, g_res_combined(masses / 6.582e-16, omega0s), color = colors[i][1], label = 'Scanning (improved)', zorder = 1)
         ax.plot(masses, g_res(masses / 6.582e-16, 2 * np.pi * fres), color = colors[i][1], linestyle = '--', label = 'Single experiment', zorder = 1)
 ax.legend(loc = 'lower left', ncol = 2, fontsize = 12)
 

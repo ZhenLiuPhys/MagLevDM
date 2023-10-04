@@ -1,3 +1,4 @@
+from curlyBrace import curlyBrace
 from matplotlib import ticker
 import matplotlib.pyplot as plt
 import numpy as np
@@ -72,14 +73,17 @@ ax.plot(freqs, SBB_imp_broad(2 * np.pi * freqs, 2 * np.pi * f0), color = colors[
 ax.plot(freqs, SBB_imp_res(2 * np.pi * freqs, 2 * np.pi * f0), color = colors[2], label = r'Imprecision (res.)')
 ax.plot(freqs, SBB_back_broad(2 * np.pi * freqs, 2 * np.pi * f0), color = colors[1], linestyle = '--', label = r'Back-action (broad.)')
 ax.plot(0, 0, color = 'white', label = 'Back-action (res.)')
-ax.plot(freqs, SBB_therm(2 * np.pi * freqs, 2 * np.pi * f0), color = colors[0], label = r'Thermal,')
+ax.plot(freqs, SBB_therm(2 * np.pi * freqs, 2 * np.pi * f0), color = colors[0], label = r'Thermal')
 ax.plot(freqs, SBB_broad(2 * np.pi * freqs, 2 * np.pi * f0), color = 'k', linestyle = '--', label = r'Total (broad.)')
 ax.plot(freqs, SBB_res(2 * np.pi * freqs, 2 * np.pi * f0), color = 'k', label = r'Total (res.)')
 
 handles, labels = ax.get_legend_handles_labels()
+handles[4] = handles[3]
 handles.reverse()
 labels.reverse()
-ax.legend(handles, labels, fontsize = 13)
+ax.legend(handles, labels, fontsize = 13, loc = 'lower left').set_zorder(3)
+ax.plot([3.25, 3.85], [4.7e-38, 4.7e-38], color = colors[0], zorder = 4)
+results = curlyBrace(fig, ax, [4.09, 2.5e-38], [4.09, 8.8e-38], k_r = 0.08, color = 'k', lw = 0.8, zorder = 4)
 
 fig.tight_layout()
 #fig.show()
