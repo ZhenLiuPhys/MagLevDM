@@ -97,7 +97,7 @@ for i in range(2):
             totalT += cohT(omega0s[-1]) * alpha
         omega0s = np.array(omega0s)
         ax.plot(masses, eps_res_combined(masses / 6.582e-16, omega0s), color = colors[i][1], label = 'Scanning (improved)', zorder = 1)
-        ax.plot(masses, eps_res(masses / 6.582e-16, 2 * np.pi * fres), color = colors[i][1], linestyle = '--', label = 'Single resonant', zorder = 1)
+        ax.plot(masses, eps_res(masses / 6.582e-16, 2 * np.pi * fres), color = colors[i][1], linestyle = '--', label = 'Single experiment', zorder = 1)
 ax.legend(loc = 'lower left', ncol = 2, fontsize = 12)
 
 class CustomTicker(ticker.LogFormatterSciNotation): 
