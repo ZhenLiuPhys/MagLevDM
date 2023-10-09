@@ -68,7 +68,7 @@ ax.fill_between(2 * np.pi * 6.582e-16 * snipehunt[0], snipehunt[1], 1, color = '
 ax.plot(2 * np.pi * 6.582e-16 * snipehunt[0], snipehunt[1], color = '0.66', zorder = 1)
 ax.text(9e-15, 8e-5, 'SNIPE\nHunt', ha = 'center', va = 'center')
 
-masses = np.logspace(np.log10(xlim1), np.log10(xlim2), 1000)
+masses = np.logspace(np.log10(xlim1), np.log10(xlim2), 10000)
 colors = [[(0.317647, 0.654902, 0.752941)], [(1., 0.721569, 0.219608), (0.921569, 0.494118, 0.431373)]]
 for i in range(2):
     m = ms[i]

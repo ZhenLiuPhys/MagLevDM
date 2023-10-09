@@ -54,7 +54,7 @@ ax.set_yscale('log')
 ax.set_xlabel(r"$m_a$\,[eV]")
 ax.set_ylabel(r'$g_{a\gamma}\,[\mathrm{GeV}^{-1}]$')
 
-masses = np.logspace(np.log10(xlim1), np.log10(xlim2), 1000)
+masses = np.logspace(np.log10(xlim1), np.log10(xlim2), 10000)
 chandra = np.loadtxt('chandra.txt').T
 ax.fill_between(chandra[0], chandra[1], 1, color = '0.98', zorder = 0.7)
 ax.plot(chandra[0], chandra[1], color = '0.83', zorder = 0.7)
