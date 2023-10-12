@@ -91,7 +91,7 @@ TE_Bfield = lambda m, n, p, x, y, z: -1j * np.nan_to_num(1 / np.sqrt(TEnorm(m, n
     n * p / Ly / Lz * np.cos(m * np.pi * x / Lx) * np.sin(n * np.pi * y / Ly) * np.cos(p * np.pi * z / Lz),
     -(m ** 2 / Lx ** 2 + n ** 2 / Ly ** 2) * np.cos(m * np.pi * x / Lx) * np.cos(n * np.pi * y / Ly) * np.sin(p * np.pi * z / Lz)])
 
-TM_Bfield = lambda m, n, p, x, y, z: 1j * np.nan_to_num(1 / np.sqrt(TMnorm(m, n, p))) * np.sqrt(m ** 2 / Lx ** 2 + n ** 2 / Ly ** 2 + p ** 2 / Lz ** 2) * np.array([
+TM_Bfield = lambda m, n, p, x, y, z: 1j * np.nan_to_num(1 / np.sqrt(TMnorm(m, n, p)) * np.sqrt(m ** 2 / Lx ** 2 + n ** 2 / Ly ** 2 + p ** 2 / Lz ** 2)) * np.array([
     n / Ly * np.sin(m * np.pi * x / Lx) * np.cos(n * np.pi * y / Ly) * np.cos(p * np.pi * z / Lz),
     -m / Lx * np.cos(m * np.pi * x / Lx) * np.sin(n * np.pi * y / Ly) * np.cos(p * np.pi * z / Lz),
     0.])
