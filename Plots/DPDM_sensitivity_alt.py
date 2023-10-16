@@ -36,8 +36,8 @@ SBB_res = lambda omega, omega0: SBB_therm(omega, omega0) + SBB_meas_res(omega, o
 SBB_broad = lambda omega, omega0: SBB_therm(omega, omega0) + SBB_meas_broad(omega, omega0) + SBB_back_broad(omega, omega0)
 
 cohT = lambda omega: 2 * np.pi * 1e6 / omega
-eps_res = lambda omega, omega0: np.sqrt(SNR * 6 * SBB_res(omega, omega0) / rhoDM) * c / (omega * R) / np.sqrt(cohT(omega0) * alpha)
-eps_res_combined = lambda omega, omega0s: (SNR ** 2 / np.sum((rhoDM * (omega * R) ** 2 * cohT(omega0s[:, None]) * alpha / (6 * SBB_res(omega, omega0s[:, None]) * c ** 2)) ** 2, axis = 0)) ** 0.25
+eps_res = lambda omega, omega0: np.sqrt(SNR * 6 * SBB_res(omega, omega0) / rhoDM) * c / (omega * R) / (cohT(omega0) * alpha * np.minimum(cohT(omega0) * alpha, cohT(omega))) ** 0.25
+eps_res_combined = lambda omega, omega0s: (SNR ** 2 / np.sum((rhoDM * (omega * R) ** 2 * np.sqrt(cohT(omega0s[:, None]) * alpha * np.minimum(cohT(omega0s[:, None]) * alpha, cohT(omega))) / (6 * SBB_res(omega, omega0s[:, None]) * c ** 2)) ** 2, axis = 0)) ** 0.25
 eps_broad = lambda omega, omega0: np.sqrt(SNR * 6 * SBB_broad(omega, omega0) / rhoDM) * c / (omega * R) / (Tint * np.minimum(Tint, cohT(omega))) ** 0.25
 
 xlim1 = 2 * np.pi * 6.582e-16 * 1

@@ -39,8 +39,8 @@ SBB_res = lambda omega, omega0: SBB_therm(omega, omega0) + SBB_meas_res(omega, o
 SBB_broad = lambda omega, omega0: SBB_therm(omega, omega0) + SBB_meas_broad(omega, omega0) + SBB_back_broad(omega, omega0)
 
 cohT = lambda omega: 2 * np.pi * 1e6 / omega
-g_res = lambda omega, omega0: np.sqrt(SNR * 3 * SBB_res(omega, omega0) / (rho * rhoDM)) * L ** 3 / (const * 2 * omega0 * (R ** 2 + h ** 2) ** 2.5) / np.sqrt(hbar * c) * 1.602e-10 / np.sqrt(cohT(omega0) * alpha)
-g_res_combined = lambda omega, omega0s: (SNR ** 2 / np.sum((rho * rhoDM * const ** 2 * 4 * omega0s[:, None] ** 2 * (R ** 2 + h ** 2) ** 5 * hbar * c * cohT(omega0s[:, None]) * alpha / (3 * SBB_res(omega, omega0s[:, None]) * L ** 6 * 1.602e-10 ** 2)) ** 2, axis = 0)) ** 0.25
+g_res = lambda omega, omega0: np.sqrt(SNR * 3 * SBB_res(omega, omega0) / (rho * rhoDM)) * L ** 3 / (const * 2 * omega0 * (R ** 2 + h ** 2) ** 2.5) / np.sqrt(hbar * c) * 1.602e-10 / (cohT(omega0) * alpha * np.minimum(cohT(omega0) * alpha, cohT(omega))) ** 0.25
+g_res_combined = lambda omega, omega0s: (SNR ** 2 / np.sum((rho * rhoDM * const ** 2 * 4 * omega0s[:, None] ** 2 * (R ** 2 + h ** 2) ** 5 * hbar * c * np.sqrt(cohT(omega0s[:, None]) * alpha * np.minimum(cohT(omega0s[:, None]) * alpha, cohT(omega))) / (3 * SBB_res(omega, omega0s[:, None]) * L ** 6 * 1.602e-10 ** 2)) ** 2, axis = 0)) ** 0.25
 g_broad = lambda omega, omega0: np.sqrt(SNR * 3 * SBB_broad(omega, omega0) / (rho * rhoDM)) * L ** 3 / (const * 2 * omega0 * (R ** 2 + h ** 2) ** 2.5) / np.sqrt(hbar * c) * 1.602e-10 / (Tint * np.minimum(Tint, cohT(omega))) ** 0.25
 
 xlim1 = 2 * np.pi * 6.582e-16 * 1
