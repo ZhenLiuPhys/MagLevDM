@@ -125,6 +125,8 @@ secyax.yaxis.set_minor_locator(ticker.FixedLocator(np.logspace(-15, 0, 16)))
 secyax.yaxis.set_minor_formatter(ticker.NullFormatter())
 plt.setp(secyax.get_yticklabels(), visible = False)
 
+ax.text(1.5e-12, 2.5e-4, 'Axion', ha = 'center', va = 'center', fontsize = 16, bbox = dict(boxstyle = 'round', facecolor = 'white', alpha = 0.5))
+
 fig.tight_layout()
 #fig.show()
 fig.savefig('axion_sensitivity_alt.pdf')

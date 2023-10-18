@@ -120,6 +120,8 @@ secyax.yaxis.set_minor_locator(ticker.FixedLocator(np.logspace(-17, 0, 18)))
 secyax.yaxis.set_minor_formatter(ticker.NullFormatter())
 plt.setp(secyax.get_yticklabels(), visible = False)
 
+ax.text(1.3e-12, 0.13, 'Dark Photon', ha = 'center', va = 'center', fontsize = 16, bbox = dict(boxstyle = 'round', facecolor = 'white', alpha = 0.5))
+
 fig.tight_layout()
 #fig.show()
 fig.savefig('DPDM_sensitivity_alt.pdf')
