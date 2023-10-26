@@ -56,9 +56,13 @@ ax.fill_between(darkages[0], darkages[1], 1, color = '0.98', zorder = 0.7)
 ax.plot(darkages[0], darkages[1], color = '0.83', zorder = 0.7)
 ax.text(2e-13, 2e-12, r"Resonant $A'\rightarrow\gamma$", ha = 'center', va = 'center')
 leoT = np.loadtxt('leoT.txt').T
-ax.fill_between(leoT[0], leoT[1], 1, color = '0.94', zorder = 0.8)
-ax.plot(leoT[0], leoT[1], color = '0.79', zorder = 0.8)
+ax.fill_between(leoT[0], leoT[1], 1, color = '0.95', zorder = 0.8)
+ax.plot(leoT[0], leoT[1], color = '0.8', zorder = 0.8)
 ax.text(1.5e-12, 8e-10, r'Leo T', ha = 'center', va = 'center')
+firas = np.loadtxt('firas.txt').T
+ax.fill_between(firas[0], firas[1], 1, color = '0.92', zorder = 0.9)
+ax.plot(firas[0], firas[1], color = '0.77', zorder = 0.9)
+ax.text(7e-14, 1e-5, r"FIRAS $\gamma\rightarrow A'$", ha = 'center', va = 'center')
 sqsn = np.loadtxt('sqsn.txt').T
 ax.fill_between(np.concatenate((sqsn[0,::1000], [sqsn[0,-1]], [sqsn[0,-1]])), np.concatenate((sqsn[1,::1000], [sqsn[1,-1]], [1])), 1, color = '0.86', zorder = 0.9)
 ax.plot(np.concatenate((sqsn[0,::1000], [sqsn[0,-1]], [sqsn[0,-1]])), np.concatenate((sqsn[1,::1000], [sqsn[1,-1]], [1])), color = '0.71', zorder = 0.9)
