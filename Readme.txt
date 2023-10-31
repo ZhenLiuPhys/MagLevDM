@@ -1,4 +1,4 @@
-This repository contains all the code used to generate the plots and figures in arXiv:xxxxx.xxxx.
+This repository contains all the code used to generate the plots and figures in arXiv:2310.18398.
 If you have any questions, please contact the author: Saarik Kalia (kalias@umn.edu)
 
 Each figure in the paper is produced by the following code.
