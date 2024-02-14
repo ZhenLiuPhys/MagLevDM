@@ -36,9 +36,9 @@ SBB_res = lambda omega, omega0: SBB_therm(omega, omega0) + SBB_meas_res(omega, o
 SBB_broad = lambda omega, omega0: SBB_therm(omega, omega0) + SBB_meas_broad(omega, omega0) + SBB_back_broad(omega, omega0)
 
 cohT = lambda omega: 2 * np.pi * 1e6 / omega
-eps_res = lambda omega, omega0: np.sqrt(SNR * 6 * SBB_res(omega, omega0) / rhoDM) * c / (omega * R) / (cohT(omega0) * alpha * np.minimum(cohT(omega0) * alpha, cohT(omega))) ** 0.25
-eps_res_combined = lambda omega, omega0s: (SNR ** 2 / np.sum((rhoDM * (omega * R) ** 2 * np.sqrt(cohT(omega0s[:, None]) * alpha * np.minimum(cohT(omega0s[:, None]) * alpha, cohT(omega))) / (6 * SBB_res(omega, omega0s[:, None]) * c ** 2)) ** 2, axis = 0)) ** 0.25
-eps_broad = lambda omega, omega0: np.sqrt(SNR * 6 * SBB_broad(omega, omega0) / rhoDM) * c / (omega * R) / (Tint * np.minimum(Tint, cohT(omega))) ** 0.25
+eps_res = lambda omega, omega0: np.sqrt(SNR * 12 * SBB_res(omega, omega0) / rhoDM) * c / (omega * R) / (cohT(omega0) * alpha * np.minimum(cohT(omega0) * alpha, cohT(omega))) ** 0.25
+eps_res_combined = lambda omega, omega0s: (4 * SNR ** 2 / np.sum((rhoDM * (omega * R) ** 2 * np.sqrt(cohT(omega0s[:, None]) * alpha * np.minimum(cohT(omega0s[:, None]) * alpha, cohT(omega))) / (6 * SBB_res(omega, omega0s[:, None]) * c ** 2)) ** 2, axis = 0)) ** 0.25
+eps_broad = lambda omega, omega0: np.sqrt(SNR * 12 * SBB_broad(omega, omega0) / rhoDM) * c / (omega * R) / (Tint * np.minimum(Tint, cohT(omega))) ** 0.25
 
 xlim1 = 2 * np.pi * 6.582e-16 * 1
 xlim2 = 2 * np.pi * 6.582e-16 * 1e3
@@ -66,7 +66,7 @@ ax.text(7e-14, 1e-5, r"FIRAS $\gamma\rightarrow A'$", ha = 'center', va = 'cente
 sqsn = np.loadtxt('sqsn.txt').T
 ax.fill_between(np.concatenate((sqsn[0,::1000], [sqsn[0,-1]], [sqsn[0,-1]])), np.concatenate((sqsn[1,::1000], [sqsn[1,-1]], [1])), 1, color = '0.86', zorder = 0.9)
 ax.plot(np.concatenate((sqsn[0,::1000], [sqsn[0,-1]], [sqsn[0,-1]])), np.concatenate((sqsn[1,::1000], [sqsn[1,-1]], [1])), color = '0.71', zorder = 0.9)
-ax.text(2e-13, 2e-2, r'SQSN', ha = 'center', va = 'center')
+ax.text(2e-13, 2e-2, r'AMAILS', ha = 'center', va = 'center')
 snipehunt = np.loadtxt('snipehunt_DPDM.txt').T
 ax.fill_between(2 * np.pi * 6.582e-16 * snipehunt[0], snipehunt[1], 1, color = '0.81', zorder = 1)
 ax.plot(2 * np.pi * 6.582e-16 * snipehunt[0], snipehunt[1], color = '0.66', zorder = 1)
